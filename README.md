@@ -8,6 +8,6 @@ github 연습용으로도 사용
     출판사 : bjpublic
 
 - 1. 산탄데르 제품 추천 경진대회(Santander Product Recommendation)
-    kaggle_page: https://www.kaggle.com/c/santander-product-recommendation/overview
-    dir: santander
+    kaggle_page: https://www.kaggle.com/c/santander-product-recommendation/overview  
+    dir: santander  
     대회기간: 16.10.27 ~ 16.12.22
