@@ -1,5 +1,5 @@
 # Please use VsCode
-
+# vscode 에서 python파일 jupyter_notebook처럼 사용하기
 #%% 
 import pandas as pd
 import numpy as np
@@ -40,9 +40,52 @@ otr[num_cols].describe()
 # 50% - 50% 값
 # 75% - 75% 값
 # max - 최댓값
+
+# %%
+# 수치형 데이터 unique
+for col in num_cols:
+    uniq = np.sort(otr[col].unique().astype(str))
+    print('-' * 50)
+    print('# col: {}, n_uniq: {}\nuniq:\n{}'.format(col, len(uniq), uniq))
 # %%
 # 24개의 고객변수 중 범주형 변수
 cat_cols = [col for col in otr.columns[:24] if otr[col].dtype in ['O']]   # 'O' -> object
 otr[cat_cols].describe()
+# count -  총 개수
+# unique - 값의 종류(고유값의 개수)
+# top - 가장 빈도가 높은 값
+# freq - top의 빈도수(데이터의 분포를 확인 할 수 있다. -> (freq/count) )
+# %%
+# 범주형 데이터의 고유값
+for col in cat_cols:
+    # uniq = np.unique(otr[col].astype(str))   # numpy를 이용하는 방법
+    uniq = np.sort(otr[col].unique().astype(str))   # pandas를 이용하는 방법 -> 속도가 더 빠르다(느낌)
+    print('-' * 50)
+    print('# col: {}, n_uniq: {}\nuniq:\n{}'.format(col, len(uniq), uniq))
 
+'''데이터를 분석하여 특징을 찾아보고 자신만의 방법으로 정리해 보기'''
+# %%
+# 데이터 시각화
+import matplotlib
+import matplotlib.pyplot as plt
+# %matplotlib inline
+import seaborn as sns
+
+skip_cols = ['ncodpers', 'renta']
+for col in otr.columns:
+    # 값이 너무 많아 시간이 걸리는 변수 skip
+    if col in skip_cols:
+        continue
+    
+    # 영역 구분
+    print("-" * 50)
+    print('col: ', col)
+
+    # 그래프 크기(figsize)를 설정
+    f, ax = plt.subplots(figsize=(20,15))
+
+    # seaborn을 사용한 막대 그래프를 생성
+    sns.countplot(x=col, data=otr, alpha=0.5)
+    # show() 함수를 통해 시각화한다.
+    plt.show()
 # %%
